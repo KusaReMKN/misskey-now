@@ -59,29 +59,35 @@ async function getUrl() {
     popup_url.value = url;
 }
 
-// ボタンのステータス変更 (@KusaReMKN さんのコードに統一予定（関数化）)
+// ボタンのステータス変更
 function buttonstatus(mode) {
-    // default, success, abort
-    if (mode == 'default') {
-        document.querySelector('.btn-send').className =
-            'btn-sm w-100 btn-send btn-primary';
-        document.querySelector('.btn-send').textContent = 'Misskey Now!';
-        document.querySelector('.btn-send').disabled = false;
-    } else if (mode == 'success') {
-        document.querySelector('.btn-send').className =
-            'btn-sm w-100 btn-send btn-success';
-        document.querySelector('.btn-send').textContent = 'Success';
-        document.querySelector('.btn-send').disabled = true;
-    } else if (mode == 'abort') {
-        document.querySelector('.btn-send').className =
-            'btn-sm w-100 btn-send btn-danger';
-        document.querySelector('.btn-send').textContent = 'Error';
-        document.querySelector('.btn-send').disabled = true;
-    } else if (mode == 'sending') {
-        document.querySelector('.btn-send').className =
-            'btn-sm w-100 btn-send btn-secondary';
-        document.querySelector('.btn-send').textContent = 'Sending...';
-        document.querySelector('.btn-send').disabled = true;
+    const btnSend = document.querySelector('.btn-send');
+
+    const classList = btnSend.classList;
+    classList.value = '';   // 一旦全ての class 要素を消し去る
+    classList.add('btn-sm', 'w-100', 'btn-send');   // 共通部分の追加
+
+    switch (mode) {
+        case 'default':
+            classList.add('btn-primary');
+            btnSend.textContent = 'Misskey Now!';
+            btnSend.disabled = false;
+            break;
+        case 'success':
+            classList.add('btn-success');
+            btnSend.textContent = 'Success';
+            btnSend.disabled = true;
+            break;
+        case 'abort':
+            classList.add('btn-danger');
+            btnSend.textContent = 'Error';
+            btnSend.disabled = true;
+            break;
+        case 'sending':
+            classList.add('btn-secondary');
+            btnSend.textContent = 'Sending...';
+            btnSend.disabled = true;
+            break;
     }
 }
 
