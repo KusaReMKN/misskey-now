@@ -1,3 +1,5 @@
+'use strict';
+
 // 初期化
 var manifestData = chrome.runtime.getManifest();
 var saveSettings = {};
@@ -100,13 +102,13 @@ async function generateNote() {
     const note = popup_note.value;
     const host = 'https://' + settings_host.value + '/api/notes/create';
     const apiKey = settings_api_key.value;
-    strings = note + '\n\n' + '『' + title + '』 - ' + url + ' ' + hash;
+    const strings = note + '\n\n' + '『' + title + '』 - ' + url + ' ' + hash;
     let data = {
         i: apiKey,
         visibility: range,
         text: strings,
     };
-    str = JSON.stringify(data);
+    const str = JSON.stringify(data);
     buttonstatus('sending');
     try {
         const response = await fetch(host, {
@@ -134,17 +136,17 @@ async function generateNote() {
 
 // 設定の保存
 async function saveSetting() {
-    profileName = settings_profile_name.value;
+    const profileName = settings_profile_name.value;
     if (popup_profile.value !== 'new') {
         delete saveSettings[[popup_profile.value]];
     }
-    instance = settings_host.value;
-    key = settings_api_key.value;
+    const instance = settings_host.value;
+    const key = settings_api_key.value;
     saveSettings[[profileName]] = {
         instance: instance,
         key: key,
     };
-    settings = {
+    const settings = {
         version: manifestData.version,
         profiles: saveSettings,
     };
